@@ -1,20 +1,15 @@
+'''
+projekt_2.py: druhý projekt do Engeto Online Python Akademie
+author: František Kuchta
+email: kuchta.f@seznam.cz
+discord:FrantisekK #fanyny94
+
+'''
 import random
-import timeit
-
-
-
-####### Proměné ############
-random.seed(150)
-secret_number = str(random.randint(1000,9999))
-print(secret_number)
-odelovac = '-' * 47
-game_go = True
-try_games = 0
-memory_attempt = []
-
+import time
 
 ####### definice vlastních funkcí
-def get_bulls_cows(cislo, uzivatel_tip):
+def get_bulls_cows(cislo, uzivatel_tip):          # Řešení hadani čísla
     bulls_cows = [0,0]
     for index in range(len(cislo)):
         if uzivatel_tip[index] == cislo[index]:
@@ -36,8 +31,16 @@ def write_cow_cows(value_cow):
     else:
         cow = print(f'Cows: {bulls_cows[1]}')
     return cow
-    
-              
+
+####### Proměné ############
+random.seed(150)
+secret_number = str(random.randint(1000,9999))
+print(f' Secret number : {secret_number}')
+odelovac = '-' * 47
+game_go = True
+try_games = 0
+memory_attempt = []
+start_time = time.time()        
         
 ################ Pozdrav############
 print(f"""Hi there!\n{odelovac}
@@ -49,6 +52,7 @@ Enter a number: \n{odelovac} """)
 while game_go:
     user_tip = input('>>> ')
     try_games += 1
+
     
     if user_tip[0] == str(0):
        print('Must not start 0 =(')
@@ -67,7 +71,9 @@ while game_go:
         print('Victory !!!!! Congratulations =)')
         print('Number of attempts: ', try_games)
         game_go = False
-        print(timeit.timeit(stmt='game_go = False'))
+        stop_time = time.time()
+        time_game = stop_time - start_time
+        print(f'Game time is {int(time_game)} s.')            # Měřeni doby hry
     else:
         bulls_cows = get_bulls_cows(secret_number,user_tip)
 
