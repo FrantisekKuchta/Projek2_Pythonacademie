@@ -73,7 +73,7 @@ Enter a number: \n{odelovac} """)
             print('''Incorrectly entered number of digits''')
             continue
         elif user_tip == secret_number:
-            print('Victory !!!!! Congratulations =)')
+            print('Victory !!!!! Congratulations 👍')
             print('Number of attempts: ', try_games)
             game_go = False
             stop_time = time.time()
