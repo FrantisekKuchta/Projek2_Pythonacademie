@@ -1,8 +1,23 @@
+'''
+projekt_2.py: druhý projekt do Engeto Online Python Akademie
+author: František Kuchta
+email: kuchta.f@seznam.cz
+discord:FrantisekK #fanyny94
+
+'''
 import random
 import time
 
 
 def generated_number():
+    '''
+    The function will generate a number in the range from 1000 to 9999.
+    No number that will be generated will contain duplicate digits (example = 5566)
+
+    Ascent:
+    The generated number is in the format str.
+    
+    '''
     duplicit = True
     while duplicit:
         number_list = []
@@ -18,16 +33,34 @@ def generated_number():
      
 
 
-def get_bulls_cows(cislo, uzivatel_tip):          
+def get_bulls_cows(number, user_tip):
+    '''
+    Function:
+       Evaluation of the entered number of the user and the guessed one. 
+       The result is the number of Bulls - the number matches the location. 
+       Number of Cows - the number is included in the fortune-telling number.
+    Example:
+       user ti = 1289
+       sercret number = 1398
+       bulls = 1
+       cows = 2
+    Ascent:
+    bulls_cows = [1,2] in int.
+    '''          
     bulls_cows = [0,0]
-    for index in range(len(cislo)):
-        if uzivatel_tip[index] == cislo[index]:
+    for index in range(len(number)):
+        if user_tip[index] == number[index]:
             bulls_cows[0] += 1        
-        elif uzivatel_tip[index] in cislo:
+        elif user_tip[index] in number:
             bulls_cows[1] += 1 
     return bulls_cows
 
 def write_bull_bulls(value_bull):
+    '''
+    Function:
+       Write Bulls = 0 or =< 2 
+       Write Bull = 1 
+    '''
     if value_bull == 1:
         bull = print(f'Bull: {value_bull}')
     else:
@@ -35,17 +68,45 @@ def write_bull_bulls(value_bull):
     return bull
 
 def write_cow_cows(value_cow):
+    '''
+    Function:
+       Write Cows = 0 or =< 2 
+       Write Cow = 1 
+    '''
     if value_cow == 1:
         cow = print(f'Cow: {value_cow}')
     else:
         cow = print(f'Cows: {value_cow}')
     return cow
 
+def game_replay():
+    '''
+    Function:
+       You can restart the game or quit it.
+    Example:
+       Do you want to replay the game?:  Yes or No =>
+       imput = Yes
+       game_replay = True
+       ----------------
+       imput = No
+       game_replay = False
+    Ascent:
+       game_reply = True or False
+    '''
+    game = input('Do you want to replay the game?:  Yes or No =>')
+    if game.lower() == 'yes':
+        return True
+    else:
+        return False
+    
 
 def game_bulls_and_cows():
+    '''
+    Bulls and Cows cell game launched. Where functions are used:
+    get_bulls_cows,game_replay,generated_number,write_cow_cows,write_bull_bulls
 
+    '''
     secret_number = generated_number()
-    print(f' Secret number : {secret_number}')
     odelovac = '-' * 47
     game_go = True
     try_games = 0
@@ -60,6 +121,7 @@ Enter a number: \n{odelovac} """)
         user_tip = input('>>> ')
         try_games += 1
 
+    
         if user_tip[0] == str(0):
             print('Must not start 0 😞') 
             continue
@@ -75,10 +137,12 @@ Enter a number: \n{odelovac} """)
         elif user_tip == secret_number:
             print('Victory !!!!! Congratulations 👍')
             print('Number of attempts: ', try_games)
-            game_go = False
             stop_time = time.time()
             time_game = stop_time - start_time
             print(f'Game time is {int(time_game)} s.')
+            game_go = game_replay()
+            if game_go == True:
+                game_bulls_and_cows()
         else:   
 
             hodnoty = get_bulls_cows(secret_number,user_tip)
@@ -90,6 +154,8 @@ Enter a number: \n{odelovac} """)
 
 if __name__ == '__main__':
     game_bulls_and_cows()
+        
+
     
 
     
